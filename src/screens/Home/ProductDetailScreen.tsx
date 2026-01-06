@@ -3,6 +3,8 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import type { HomeStackParamList } from "../../types/navigation";
 import { useProduct } from "../../hooks/queries/useProduct";
+import { useTheme } from '../../theme/useTheme';
+
 
 type Props = NativeStackScreenProps<HomeStackParamList, "ProductDetail">;
 
