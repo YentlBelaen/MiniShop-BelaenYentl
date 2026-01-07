@@ -5,6 +5,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import RootTabNavigator from "./src/navigation/RootTabNavigator";
 import { queryClient } from "./src/lib/queryClient";
 import { store } from "./src/store/store";
+import { StyleSheet } from "react-native";
 
 export default function App() {
   return (
