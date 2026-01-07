@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { CartItem } from '../../types/cart';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { CartItem } from "../../types/cart";
 
 type CartState = {
   items: CartItem[];
@@ -17,33 +17,35 @@ type AddToCartPayload = {
 };
 
 export const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<AddToCartPayload>) => {
       const existing = state.items.find(
-        (item) => item.productId === action.payload.productId
+        (i) => i.productId === action.payload.productId
       );
-
       if (existing) {
         existing.quantity += 1;
         return;
       }
-
-      state.items.push({
-        ...action.payload,
-        quantity: 1,
-      });
+      state.items.push({ ...action.payload, quantity: 1 });
     },
 
-    incrementQuantity: (state, action: PayloadAction<{ productId: number }>) => {
+    incrementQuantity: (
+      state,
+      action: PayloadAction<{ productId: number }>
+    ) => {
       const item = state.items.find(
         (i) => i.productId === action.payload.productId
       );
-      if (item) item.quantity += 1;
+      if (!item) return;
+      item.quantity += 1;
     },
 
-    decrementQuantity: (state, action: PayloadAction<{ productId: number }>) => {
+    decrementQuantity: (
+      state,
+      action: PayloadAction<{ productId: number }>
+    ) => {
       const item = state.items.find(
         (i) => i.productId === action.payload.productId
       );
@@ -62,6 +64,10 @@ export const cartSlice = createSlice({
         (i) => i.productId !== action.payload.productId
       );
     },
+
+    setCartItems: (state, action: PayloadAction<CartItem[]>) => {
+      state.items = action.payload;
+    },
   },
 });
 
@@ -70,6 +76,7 @@ export const {
   incrementQuantity,
   decrementQuantity,
   removeItem,
+  setCartItems,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

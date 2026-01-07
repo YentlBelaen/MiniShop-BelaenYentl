@@ -6,13 +6,16 @@ import RootTabNavigator from "./src/navigation/RootTabNavigator";
 import { queryClient } from "./src/lib/queryClient";
 import { store } from "./src/store/store";
 import { StyleSheet } from "react-native";
+import HydrateStore from "./src/store/HydrateStore";
 
 export default function App() {
   return (
     <ReduxProvider store={store}>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <RootTabNavigator />
+          <HydrateStore>
+            <RootTabNavigator />
+          </HydrateStore>
         </NavigationContainer>
       </QueryClientProvider>
     </ReduxProvider>
