@@ -1,6 +1,6 @@
-import { View, Text, Image, Pressable } from "react-native";
-import type { Product } from "../types/product";
-import { useTheme } from "../theme/useTheme";
+import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
+import type { Product } from '../types/product';
+import { useTheme } from '../theme/useTheme';
 
 type Props = {
   product: Product;
@@ -17,27 +17,40 @@ export default function ProductCard({ product, onPress }: Props) {
           borderWidth: 1,
           borderColor: colors.border,
           backgroundColor: colors.card,
-          borderRadius: 12,
+          borderRadius: 14,
           padding: 12,
-          gap: 8,
         }}
       >
-        <Image
-          source={{ uri: product.thumbnail }}
-          style={{ width: "100%", height: 160, borderRadius: 10 }}
-          resizeMode="cover"
-        />
-        <Text style={{ fontSize: 16, fontWeight: "600", color: colors.text }}>
+        <View
+          style={{
+            width: '100%',
+            height: 140,
+            borderRadius: 12,
+            overflow: 'hidden',
+            backgroundColor: colors.background,
+            borderWidth: 1,
+            borderColor: colors.border,
+            marginBottom: 10,
+            position: 'relative',
+          }}
+        >
+          <Image
+            source={{ uri: product.thumbnail }}
+            resizeMode="contain"
+            style={StyleSheet.absoluteFillObject}
+          />
+        </View>
+
+        <Text style={{ fontSize: 16, fontWeight: '700', color: colors.text }}>
           {product.title}
         </Text>
-        <Text
-          style={{ fontSize: 14, color: colors.mutedText }}
-          numberOfLines={2}
-        >
+
+        <Text style={{ fontSize: 13, color: colors.mutedText, marginTop: 6 }} numberOfLines={2}>
           {product.description}
         </Text>
-        <Text style={{ fontSize: 16, fontWeight: "700", color: colors.text }}>
-          € {product.price}
+
+        <Text style={{ fontSize: 16, fontWeight: '800', color: colors.text, marginTop: 10 }}>
+          € {product.price.toFixed(2)}
         </Text>
       </View>
     </Pressable>
