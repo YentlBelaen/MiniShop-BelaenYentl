@@ -12,3 +12,4 @@ export type ProductsResponse = {
   skip: number;
   limit: number;
 };
+
