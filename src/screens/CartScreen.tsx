@@ -1,4 +1,4 @@
-import { Button, FlatList, Image, Text, View } from "react-native";
+import { Button, FlatList, Image, Text, View, StyleSheet } from 'react-native';
 
 import { useTheme } from "../theme/useTheme";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -60,12 +60,24 @@ export default function CartScreen() {
               gap: 10,
             }}
           >
-            <Image
-              source={{ uri: item.thumbnail }}
-              style={{ width: "100%", height: 160, borderRadius: 10 }}
-              resizeMode="cover"
-            />
-
+            <View
+              style={{
+                width: '100%',
+                height: 120,
+                borderRadius: 10,
+                overflow: 'hidden',
+                backgroundColor: colors.background,
+                borderWidth: 1,
+                borderColor: colors.border,
+                position: 'relative',
+              }}
+            >
+              <Image
+                source={{ uri: item.thumbnail }}
+                resizeMode="contain"
+                style={StyleSheet.absoluteFillObject}
+              />
+            </View>
             <Text
               style={{ fontSize: 16, fontWeight: "700", color: colors.text }}
             >
