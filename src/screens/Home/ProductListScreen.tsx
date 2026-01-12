@@ -15,7 +15,7 @@ export default function ProductListScreen({ navigation }: Props) {
   const { data, isLoading, error } = useProducts();
 
   const [search, setSearch] = useState('');
-  const debouncedSearch = useDebouncedValue(search, 300);
+  const debouncedSearch = useDebouncedValue(search, 300); //300ms debounce timer
 
   const products = data?.products ?? [];
 
@@ -48,33 +48,30 @@ export default function ProductListScreen({ navigation }: Props) {
     );
   }
 
-  if (filteredProducts.length === 0) {
-    return (
-      <View style={{ flex: 1, padding: 16, backgroundColor: colors.background }}>
-        <Text style={{ fontWeight: '700', color: colors.text }}>No products found</Text>
-      </View>
-    );
-  }
+return (
+  <View style={{ flex: 1, padding: 16, backgroundColor: colors.background }}>
+    <TextInput
+      value={search}
+      onChangeText={setSearch}
+      placeholder="Search products..."
+      placeholderTextColor={colors.mutedText}
+      style={{
+        borderWidth: 1,
+        borderColor: colors.border,
+        backgroundColor: colors.card,
+        color: colors.text,
+        borderRadius: 12,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        marginBottom: 12,
+      }}
+    />
 
-  return (
-    <View style={{ flex: 1, padding: 16, backgroundColor: colors.background }}>
-      <TextInput
-        value={search}
-        onChangeText={setSearch}
-        placeholder="Search products..."
-        placeholderTextColor={colors.mutedText}
-        style={{
-          borderWidth: 1,
-          borderColor: colors.border,
-          backgroundColor: colors.card,
-          color: colors.text,
-          borderRadius: 12,
-          paddingHorizontal: 12,
-          paddingVertical: 10,
-          marginBottom: 12,
-        }}
-      />
-
+    {filteredProducts.length === 0 ? (
+      <Text style={{ color: colors.mutedText, textAlign: 'center', marginTop: 24 }}>
+        No products found
+      </Text>
+    ) : (
       <FlatList
         data={filteredProducts}
         keyExtractor={(item) => String(item.id)}
@@ -87,6 +84,8 @@ export default function ProductListScreen({ navigation }: Props) {
         contentContainerStyle={{ paddingBottom: 24 }}
         showsVerticalScrollIndicator={false}
       />
-    </View>
-  );
+    )}
+  </View>
+);
+
 }
